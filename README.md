@@ -6,8 +6,8 @@
 6. Create Lambda URL for all 3 Lambdas
 7. Install AirLiveDrive (recommended for multiuser scenario) and mount S3 as drive in Windows
 
-**To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir/) use Lambda URL with query string: restrore.lambda-url.us-east-1.on.aws**/?path=Dirname/Subdirname/Another dir**
+**To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _restrore.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 
-**To block access for s3_user** in specific directory:(example: S3/Dirname/Subdirname/Another dir/) use Lambda URL with query string: lock.lambda-url.us-east-1.on.aws**/?path=Dirname/Subdirname/Another dir**
+**To block access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query _string: lock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 
-**To unlock access for s3_user** in specific directory:(example: S3/Dirname/Subdirname/Another dir/) use Lambda URL with query string: unlock.lambda-url.us-east-1.on.aws**/?path=Dirname/Subdirname/Another dir**
+**To unlock access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _unlock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
