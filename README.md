@@ -9,8 +9,7 @@
 **To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _restrore.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 
 **To block access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query _string: lock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
+* block Lambda affects only s3_user - policies are not attached to s3_admin user
 
 **To unlock access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _unlock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 * unlock access Lambda can be used without giving any path parameter to URL or can be triggered by EventBridge schedule - if no paramaters are given this Lambda by default will remove any blocking policies which are older than 10 days (default)
-
-**BLOCK Lambda affects only s3_user - policies are not attached to s3_admin user**
