@@ -2,9 +2,9 @@
 2. Create gateway VPC endpoint for your S3 bucket
 3. Create IAM policies: s3_user_policy, s3_admin_policy, lambda_policy
 4. Create IAM Users (s3_user and s3_admin) and IAM Role for Lambda and attach proper policies.
-5. Create 3 Lambda functions inside your VPC (to use S3 VPC endpoint) and use the same IAM Role for all of them
+5. Create 3 Lambda functions; restore_objects Lambda can be placed inside your VPC to make use of S3 VPC gateway endpoint - IAM Role will require additional permissions to create ENI; use the same IAM Role for all Lambdas
 6. Copy/paste python scripts' contents to Lambda functions and replace variables with your values
-7. Create Lambda URL for all 3 Lambdas
+7. Create Lambda URLs for all 3 Lambdas
 8. Install and configure AirLiveDrive (recommended for multiuser scenario - 1sec cache settings) and mount S3 as drive in Windows
 
 **To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _restrore.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
