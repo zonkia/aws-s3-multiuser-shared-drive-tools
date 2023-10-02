@@ -7,6 +7,7 @@
 7. Create public Lambda URLs for all 3 Lambdas
 8. Install and configure AirLiveDrive (recommended for multiuser scenario - 1sec cache settings) and mount S3 as drive in Windows
 9. Use Lambdas' public URL with paramater 'path' to:
+
   a) **To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _restrore.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 
   b) **To block access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query _string: lock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
