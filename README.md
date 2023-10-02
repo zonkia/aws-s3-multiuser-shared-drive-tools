@@ -4,7 +4,7 @@
 4. Create 3 Lambda functions and use the same IAM Role
 5. Copy/paste python scripts' contents to Lambda functions and replace variables with your values
 6. Create Lambda URL for all 3 Lambdas
-7. Install AirLiveDrive (recommended for multiuser scenario) and mount S3 as drive in Windows
+7. Install and configure AirLiveDrive (recommended for multiuser scenario - 1sec cache settings) and mount S3 as drive in Windows
 
 **To restore objects** in specific directory (example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: _restrore.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
 
