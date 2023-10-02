@@ -1,4 +1,4 @@
-1. Create S3 bucket with versioning enabled
+1. Create S3 bucket with versioning enabled and add bucket_policy
 2. Create IAM policies: s3_user_policy, s3_admin_policy, lambda_policy
 3. Create IAM Users (s3_user and s3_admin) and IAM Role for Lambda and attach proper policies.
 4. Create 3 Lambda functions and use the same IAM Role
