@@ -8,6 +8,7 @@ iam = boto3.client('iam')
 
 bucket_name = "bucket_name"
 iam_user = "s3-user"
+ACC_ID = 123456789
 
 def lambda_handler(event, context):
     nowtime = datetime.today().date()
@@ -74,7 +75,7 @@ def lambda_handler(event, context):
     
     iam.attach_user_policy(
         UserName=iam_user,
-        PolicyArn=f'arn:aws:iam::<ACC_ID>:policy/{policy_name}'
+        PolicyArn=f'arn:aws:iam::{ACC_ID}:policy/{policy_name}'
     )
 
     return f"Policy was added to block access in: {prefixValue}"
