@@ -92,7 +92,9 @@
                 "iam:ListPolicies",
                 "iam:DetachUserPolicy",
                 "iam:GetPolicy",
-                "iam:GetPolicyVersion"
+                "iam:GetPolicyVersion",
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicyVersion"
             ],
             "Resource": "*"
         }
