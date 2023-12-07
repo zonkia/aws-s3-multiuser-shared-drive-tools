@@ -13,7 +13,7 @@
 
   b) **To block access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: 
   _lock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
-  * block Lambda affects only s3_user - policies are not attached to s3_admin user
+  * block Lambda affects only s3_user - blocking-policy is attached to s3_user
 
   c) **To unlock access for s3_user** in specific directory/file:(example: S3/Dirname/Subdirname/Another dir) use Lambda URL with query string: 
   _unlock.lambda-url.us-east-1.on.aws/?path=Dirname/Subdirname/Another dir_
