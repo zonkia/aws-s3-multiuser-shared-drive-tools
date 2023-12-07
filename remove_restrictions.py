@@ -29,7 +29,6 @@ def lambda_handler(event, context):
             return f"There are no policies to delete in path: {prefixValue}"
     
     policy_document["Statement"][0]["Resource"] = [i for i in policy_document["Statement"][0]["Resource"] if i not in lines]
-    print(policy_document)
 
     iam.create_policy_version(
         PolicyArn=policy_arn,
