@@ -1,83 +1,42 @@
-from datetime import datetime, timedelta
 import boto3
 import json
-import random
-import string
 
 iam = boto3.client('iam')
-
 bucket_name = "bucket_name"
-iam_user = "s3-user"
-ACC_ID = 123456789
 
 def lambda_handler(event, context):
-    nowtime = datetime.today().date()
     
     try:
         prefixValue = str(event["queryStringParameters"]["path"])
     except Exception:
         prefixValue = ""
-    
 
-    policy_name = f"temporary-{nowtime}-{''.join(random.choice(string.ascii_letters) for i in range(40))}"
+    policy_arn = "arn:aws:iam::11111111:policy/blocking-policy"
+    policy = iam.get_policy(PolicyArn=policy_arn)
+    policy_version = policy["Policy"]["DefaultVersionId"]
+    policy_document = iam.get_policy_version(
+        PolicyArn=policy_arn,
+        VersionId=policy_version)["PolicyVersion"]["Document"]
     
     if "." in prefixValue:
-
-        temp_policy = {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Deny",
-                    "Action": [
-                        "s3:PutObject",
-                        "s3:DeleteObject",
-                        "s3:GetObject",
-                        "s3:GetObjectVersion",
-                        "s3:DeleteObjectVersion"
-                    ],
-                    "Resource": [
-                        f"arn:aws:s3:::{bucket_name}/{prefixValue}"
-                        ]
-                }
-            ]
-        }
-
+        lines = [f"arn:aws:s3:::{bucket_name}/{prefixValue}"]
     else:
         if prefixValue != "":
-            
-            temp_policy = {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Deny",
-                        "Action": [
-                            "s3:PutObject",
-                            "s3:DeleteObject",
-                            "s3:GetObject",
-                            "s3:GetObjectVersion"
-                        ],
-                        "Resource": [
-                            f"arn:aws:s3:::{bucket_name}/{prefixValue}/*",
-                            f"arn:aws:s3:::{bucket_name}/{prefixValue}"
-                            ]
-                    }
-                ]
-            }
-
+            lines = [f"arn:aws:s3:::{bucket_name}/{prefixValue}/*"]
         else:
-            return str("No path was given in the URL. You need to give path to: \n a) To blocked file: https://address.eu-central-1.on.aws/?path=Drive/Folder/File.txt \n b) OR to blocked directory: https://address.eu-central-1.on.aws/?path=Drive/Folder")
+            return "No path was given in the URL. Try again"
 
-    iam.create_policy(
-        PolicyName=policy_name,
-        PolicyDocument=json.dumps(temp_policy)
-    )
-
+    policy_document["Statement"][0]["Resource"] = policy_document["Statement"][0]["Resource"] + lines
     
-    iam.attach_user_policy(
-        UserName=iam_user,
-        PolicyArn=f'arn:aws:iam::{ACC_ID}:policy/{policy_name}'
+    iam.create_policy_version(
+        PolicyArn=policy_arn,
+        PolicyDocument=json.dumps(policy_document),
+        SetAsDefault=True
+        )
+
+    iam.delete_policy_version(
+        PolicyArn=policy_arn,
+        VersionId=policy_version
     )
-
+    
     return f"Policy was added to block access in: {prefixValue}"
-
-
